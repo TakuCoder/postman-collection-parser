@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) throws JSONException {
 
 
-        File file = new File("/home/warrior/Desktop/GET.postman_collection.json");
+        File file = new File("C:\\Users\\Thiyagu\\Desktop\\sample.postman_collection.json");
 
 
         try {
@@ -42,6 +42,7 @@ public class Main {
 
             String _postman_id = info.getString("_postman_id");
             String name = info.getString("name");
+
             String schema = info.getString("schema");
 
 
@@ -51,16 +52,30 @@ public class Main {
 
 
             JSONObject request = new JSONObject(jsonObject1.getString("request"));
-            JSONObject auth = new JSONObject(request.getString("auth"));
+            String descriptionmain = request.getString("description");
+
+            if(request.has("auth"))
+            {
+                JSONObject auth = new JSONObject(request.getString("auth"));
+                String type = auth.getString("type");
+                System.out.println("auth found");
+                System.out.println("type" + type);
+            }
+           else
+            {
+
+                System.out.println("no auth found");
+            }
             String method = request.getString("method");
             JSONArray header = request.getJSONArray("header");
-            String type = auth.getString("type");
+
             System.out.println(jsonArray.length());
             System.out.println(_postman_id);
             System.out.println(name);
+
             System.out.println(schema);
             System.out.println(item_name);
-            System.out.println("type" + type);
+
             System.out.println(method + "method");
 
             JSONArray header_array = request.getJSONArray("header");
@@ -140,7 +155,6 @@ public class Main {
 
                 }
 
-
                 System.out.println(mode);
             } else {
 
@@ -150,10 +164,13 @@ public class Main {
 
             JSONObject url = request.getJSONObject("url");
             String raw = url.getString("raw");
+
             JSONArray hostarray = url.getJSONArray("host");
             String host1 = hostarray.getString(0);
             String host2 = hostarray.getString(1);
             String host3 = hostarray.getString(2);
+            System.out.println(raw);
+
             System.out.println(host1 + host2 + host3);
             JSONArray query_array = url.getJSONArray("query");
             for (int i = 0; i < query_array.length(); i++) {
@@ -179,10 +196,11 @@ public class Main {
 
 
             String response = jsonObject1.getString("response");
+            System.out.println(descriptionmain);
         } catch (Exception e) {
 
             System.out.println(e.toString());
-
+            e.printStackTrace();
         }
 
 
